@@ -109,33 +109,13 @@
   .profile //我的
     width 100%
     overflow hidden
-    .header
-      background-color #02a774
-      position fixed
-      z-index 100
-      left 0
-      top 0
-      width 100%
-      height 45px
-      .header_title
-        position absolute
-        top 50%
-        left 50%
-        transform translate(-50%, -50%)
-        width 50%
-        color #fff
-        text-align center
-        .header_title_text
-          font-size 20px
-          color #fff
-          display block
     .profile-number
       margin-top 45.5px
       .profile-link
         clearFix()
         position relative   //小箭头是固定定位
         display block
-        background #02a774
+        background-image linear-gradient(90deg,#0af,#0085ff)
         padding 20px 10px
         .profile_image
           float left

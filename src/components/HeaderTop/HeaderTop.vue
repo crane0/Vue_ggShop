@@ -22,7 +22,7 @@
   @import "../../common/stylus/mixins.styl"
 
   .header
-    background-color #02a774
+    background-image linear-gradient(90deg,#0af,#0085ff)
     position fixed
     z-index 100
     left 0

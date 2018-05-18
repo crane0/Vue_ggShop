@@ -2,7 +2,7 @@
   <section class="loginContainer">
     <div class="loginInner">
       <div class="login_header">
-        <h2 class="login_logo">外卖</h2>
+        <h2 class="login_logo">萌萌哒</h2>
         <div class="login_header_title">
           <a href="javascript:;" class="on">短信登录</a>
           <a href="javascript:;" >密码登录</a>
@@ -73,7 +73,7 @@
         .login_logo
           font-size 40px
           font-weight bold
-          color #02a774
+          color #0085ff
           text-align center
         .login_header_title
           padding-top 40px
@@ -85,9 +85,9 @@
             &:first-child
               margin-right 40px
             &.on
-              color #02a774
+              color #0085ff
               font-weight 700
-              border-bottom 2px solid #02a774
+              border-bottom 2px solid #0af
       .login_content
         >form
           >div
@@ -104,7 +104,7 @@
               outline 0
               font 400 14px Arial
               &:focus
-                border 1px solid #02a774
+                border 1px solid #0085ff
             .login_message
               position relative
               margin-top 16px
@@ -146,7 +146,7 @@
                     float right
                     color #ddd
                 &.on
-                  background #02a774
+                  background-image linear-gradient(90deg,#0af,#0085ff)
                 >.switch_circle
                   //transform translateX(27px)
                   position absolute
@@ -165,14 +165,14 @@
               font-size 14px
               line-height 20px
               >a
-                color #02a774
+                color #0085ff
           .login_submit
             display block
             width 100%
             height 42px
             margin-top 30px
             border-radius 4px
-            background #4cd96f
+            background-image linear-gradient(90deg,#0af,#0085ff)
             color #fff
             text-align center
             font-size 16px

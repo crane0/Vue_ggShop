@@ -45,8 +45,7 @@
         &.search_submit
           float right
           width 18%
-          border 4px solid #02a774
           font-size 16px
           color #fff
-          background-color #02a774
+          background-image linear-gradient(90deg,#0af,#0085ff)
 </style>

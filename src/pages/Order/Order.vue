@@ -38,7 +38,7 @@
         color #6a6a6a
       >button
         display inline-block
-        background #02a774
+        background-image linear-gradient(90deg,#0af,#0085ff)
         font-size 14px
         color #fff
         border 0

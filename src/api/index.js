@@ -13,7 +13,7 @@ export const reqAddress = (geohash) => ajax(`${BASE_URL}/position/${geohash}`)
 export const reqCategorys = () => ajax(BASE_URL + '/index_category')
 
 //3、根据经纬度获取商铺列表
-export const reqShops = (latitude, longitude) => ajax(BASE_URL + '/shop', {latitude, longitude})
+export const reqShops = (longitude, latitude) => ajax(BASE_URL + '/shops', {longitude, latitude})
 
 // 4、根据经纬度和关键字搜索商铺列表
 // 5、获取一次性验证码

@@ -294,8 +294,14 @@
 </template>
 
 <script>
+  import {mapState} from 'vuex'
+
   export default {
-    name: "shop-list"
+    name: "shop-list",
+    
+    computed: {
+      ...mapState(['shops'])
+    },
   }
 </script>
 
