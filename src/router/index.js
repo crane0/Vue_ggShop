@@ -31,7 +31,10 @@ export default new VueRouter({
     {
       path: '/msite',
       component: Msite,
-      //配合App中v-show，来处理FooterGuide的显示隐藏，需要显示的路由组件，都要有
+      /*
+      * 路由元信息
+      * 配合App中v-show，来处理FooterGuide的显示隐藏，需要显示的路由组件，都要有
+      * */
       meta: {
         showFooter: true
       }

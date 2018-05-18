@@ -23,7 +23,7 @@
   @import "../../common/stylus/mixins.styl"
   .search  //搜索
     width 100%
-    overflow hidden
+    overflow hidden   //为了在另一页滑到其他位置时，切换到当前页面，是处于最顶端的
     .search_form
       clearFix()
       margin-top 45px

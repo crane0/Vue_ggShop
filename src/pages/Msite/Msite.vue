@@ -1,7 +1,7 @@
 <template>
   <section class="msite">
       <!--头部-->
-    <HeaderTop title="昌平区北七家宏福科技园(337省道北)">
+    <HeaderTop :title="address.name">
       <router-link slot="left" to="/search" class="header_search">
         <i class="iconfont icon-sousuo"></i>
       </router-link>
@@ -186,16 +186,14 @@
 <script>
   import Swiper from 'swiper'
   import 'swiper/dist/css/swiper.min.css'
+  import {mapState} from 'vuex'
 
   import HeaderTop from '../../components/HeaderTop/HeaderTop.vue'
   import ShopList from '../../components/ShopList/ShopList.vue'
 
   export default {
     name: "msite",
-    components: {
-      HeaderTop,
-      ShopList
-    },
+
     mounted () {
       new Swiper('.swiper-container', {
         pagination: {
@@ -203,8 +201,15 @@
         },
         loop: true  //实现无缝
       })
+    },
 
-    }
+    computed: {
+      ...mapState(['address'])
+    },
+    components: {
+      HeaderTop,
+      ShopList
+    },
   }
 </script>
 
