@@ -47,7 +47,9 @@
               </section>
               <section class="login_message">
                 <input type="text" maxlength="11" placeholder="验证码" v-model="captcha">
-                <img class="get_verification" src="./images/captcha.svg" alt="captcha">
+                <!--这里可以直接发送请求，不存在跨域-->
+                <img class="get_verification" src="http://localhost:4000/captcha" alt="captcha" @click="imgUpdate">
+
               </section>
             </section>
           </div>
@@ -151,6 +153,14 @@
       closeTip1 () {
         this.alertShow = false
         this.alertText = ''
+      },
+
+      imgUpdate (event) {
+        /*
+        * src必须变化，才会重新发送请求，
+        *   所以可以添加一个当前时间，并不会影响返回值。
+        * */
+        event.target.src = 'http://localhost:4000/captcha?time='+Date.now()
       }
     },
 

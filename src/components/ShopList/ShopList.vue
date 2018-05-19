@@ -1,6 +1,6 @@
 <template>
   <div class="shop_container">
-    <ul class="shop_list">
+    <ul class="shop_list" v-if="shops.length">
       <li class="shop_li border-1px" v-for="(shop, index) in shops" :key="index">
         <a>
           <div class="shop_left">
@@ -46,6 +46,13 @@
             </section>
           </div>
         </a>
+      </li>
+    </ul>
+
+    <!--请求的数据未获取时的，占位图-->
+    <ul v-else>
+      <li v-for="item in 6">
+        <img src="./images/shop_back.svg" alt="占位图">
       </li>
     </ul>
   </div>
