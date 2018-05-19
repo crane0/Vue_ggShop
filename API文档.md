@@ -13,7 +13,7 @@
 [10、用户登出](#10用户登出)<br/>
 
 ## 1、根据经纬度获取位置详情
-
+     
 ### 请求URL：
 	http://localhost:3000/position/:geohash
 
@@ -187,7 +187,7 @@
 ### 请求URL：
 	http://localhost:3000/search_shops
 	例子: http://localhost:3000/search_shops?keyword=test&geohash=40.10038,116.36867
-
+	
 ### 请求方式：
     GET
 
@@ -369,7 +369,7 @@
     }
 
 ## 5、获取一次性验证码
-
+     
 ### 请求URL：
 	http://localhost:3000/captcha
 
@@ -392,7 +392,7 @@
 
 
 ## 6、用户名密码登陆
-
+     
 ### 请求URL：
 	http://localhost:3000/login_pwd
 
@@ -404,7 +404,7 @@
 	|参数		|是否必选 |类型     |说明
 	|name       |Y       |string   |用户名
 	|pwd        |Y       |string   |密码
-	|captche    |Y       |string   |图片验证码
+	|captcha    |Y       |string   |验证码
 
 ### 返回示例：
     * 登陆成功
@@ -423,7 +423,7 @@
 
 
 ## 7、发送短信验证码
-
+     
 ### 请求URL：
 	http://localhost:3000/sendcode
 
@@ -439,13 +439,19 @@
 	|phone       |Y       |string   |手机号
 
 ### 返回示例：
-      {
-        "code": 0,
-      }
-
-
+	* 成功:
+		{
+			"code": 0,
+		}
+	* 失败:
+		{
+			"code": 1, 
+			"msg": "短信验证码发送失败"
+		}
+      
+      
 ## 8、手机号验证码登陆
-
+     
 ### 请求URL：
 	http://localhost:3000/login_sms
 
@@ -472,7 +478,7 @@
         "code": 1,
         "msg": "手机号或验证码不正确"
       }
-
+      
 ### 9、根据会话获取用户信息
 
 #### 请求URL：
@@ -495,7 +501,7 @@
         "code": 1,
         "msg": "请先登陆"
       }
-
+      
 
 ### 10、用户登出
 

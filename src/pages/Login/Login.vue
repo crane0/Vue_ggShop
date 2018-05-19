@@ -11,13 +11,15 @@
 
 
       <div class="login_content">
-        <!--阻止了button对表单的默认提交行为-->
+        <!--阻止了表单的默认提交行为-->
         <form @submit.prevent="login">
           <div :class="{on: loginWay}">
             <section class="login_message">
               <input type="tel" maxlength="11" placeholder="手机号" v-model="phone">
+
+              <!--这个button，要阻止默认行为，否则会触发表单提交！-->
               <button :disabled="!rightPhone" class="get_verification"
-                :class="{right_phone: rightPhone}" @click="getCode">
+                :class="{right_phone: rightPhone}" @click.prevent="getCode">
                 {{computeTime>0 ? `已发送${computeTime}s` : '获取验证码'}}
               </button>
             </section>
@@ -75,6 +77,9 @@
 <script>
   import AlertTip from '../../components/AlertTip/AlertTip'
 
+  //这次不再actions中发送ajax请求，而是在组件中发送
+  import {reqSendcode} from '../../api'
+
   export default {
     data () {
       return {
@@ -103,19 +108,35 @@
     },
 
     methods: {
-      getCode () {
+      //获取短信验证码
+      async getCode () {
         if(!this.computeTime){
-          this.computeTime = 5
-          const IntervalId = setInterval(() => {
+          this.computeTime = 30
+          this.intervalId = setInterval(() => {
             this.computeTime--
             if (this.computeTime <= 0) {
-              clearInterval(IntervalId)
+              clearInterval(this.intervalId)
             }
           }, 1000)
+
+          //向目标手机发送短信验证码
+          const result = await reqSendcode(this.phone)
+          if (result.code === 1) {
+            //提示错误信息
+            this.showAlert(result.msg)
+            /*
+            * 如果出现了错误，将计时器初始值置位 0
+            * 并且清除开启的定时器
+            * */
+            if (this.computeTime) {
+              this.computeTime = 0
+              clearInterval(this.intervalId)
+            }
         }
+      }
       },
 
-      //配合下面的login使用，来确定是否显示提示框
+      //在其他方法中，来确定是否显示提示框
       showAlert (alertText) {
         this.alertShow = true
         this.alertText = alertText
@@ -155,6 +176,7 @@
         this.alertText = ''
       },
 
+      //发送请求，更新图片验证码
       imgUpdate (event) {
         /*
         * src必须变化，才会重新发送请求，
