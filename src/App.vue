@@ -16,10 +16,11 @@
 
     mounted () {
       this.getAddress()
+      this.getUserinfo()
     },
 
     methods: {
-      ...mapActions(['getAddress'])
+      ...mapActions(['getAddress', 'getUserinfo'])
       // mapActions (names) {
       //   const result = {}
       //   names.forEach(name => {
