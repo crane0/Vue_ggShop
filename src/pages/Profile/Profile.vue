@@ -94,17 +94,44 @@
         </div>
       </a>
     </section>
+
+    <!--退出登录，登录时显示-->
+    <section class="profile_my_order border-1px" v-if="userInfo._id">
+      <mt-button class="logout" type="danger" @click="logout">退出登陆</mt-button>
+    </section>
+
   </section>
 </template>
 
 <script>
   import {mapState} from 'vuex'
+  //用于退出登录
+  import { MessageBox, Toast } from 'mint-ui'
   import HeaderTop from '../../components/HeaderTop/HeaderTop.vue'
 
   export default {
     name: "profile",
     computed: {
       ...mapState(['userInfo'])
+    },
+
+    methods: {
+      logout () {
+        /*
+        * then中传2个参数（函数类型），
+        *   点击'确定'，触发第一个，
+        * */
+        MessageBox.confirm('确认退出吗?').then(
+          action => {
+            // 请求退出
+            this.$store.dispatch('logout')
+            Toast('登出完成')
+          },
+          action => {
+            console.log('点击了取消')
+          }
+        );
+      }
     },
 
     components: {
@@ -248,4 +275,6 @@
             .icon-jiantou1
               color #bbb
               font-size 10px
+      .logout
+        width 100%
 </style>
