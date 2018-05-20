@@ -5,8 +5,12 @@
       <router-link slot="left" to="/search" class="header_search">
         <i class="iconfont icon-sousuo"></i>
       </router-link>
-      <router-link slot="right" to="/login" class="header_login">
-        <span class="header_login_text">登陆|注册</span>
+      <router-link slot="right" :to="userInfo._id ? '/userInfo' :'/login'" class="header_login">
+        <!--登陆后，显示一个图标-->
+        <span class="header_login_text" v-if="!userInfo._id">登陆|注册</span>
+        <span class="header_login_text" v-else>
+          <i class="iconfont icon-person"></i>
+        </span>
       </router-link>
     </HeaderTop>
 
@@ -70,7 +74,7 @@
     },
 
     computed: {
-      ...mapState(['address', 'categorys']),
+      ...mapState(['address', 'categorys', 'userInfo']),
       /*
      根据categorys一维数组生成一个2维数组
      小数组中的元素个数最大是8

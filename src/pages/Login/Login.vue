@@ -50,7 +50,8 @@
               <section class="login_message">
                 <input type="text" maxlength="11" placeholder="验证码" v-model="captcha">
                 <!--这里可以直接发送请求，不存在跨域-->
-                <img class="get_verification" src="http://localhost:4000/captcha" alt="captcha" @click="imgUpdate">
+                <img class="get_verification" src="http://localhost:4000/captcha" alt="captcha"
+                     @click="getCaptcha" ref="captcha">
 
               </section>
             </section>
@@ -78,7 +79,7 @@
   import AlertTip from '../../components/AlertTip/AlertTip'
 
   //这次不再actions中发送ajax请求，而是在组件中发送
-  import {reqSendcode} from '../../api'
+  import {reqSendcode, reqLoginPwd, reqLoginSms} from '../../api'
 
   export default {
     data () {
@@ -108,6 +109,12 @@
     },
 
     methods: {
+      //在其他方法中，来确定是否显示提示框
+      showAlert (alertText) {
+        this.alertShow = true
+        this.alertText = alertText
+      },
+
       //获取短信验证码
       async getCode () {
         if(!this.computeTime){
@@ -131,19 +138,16 @@
             if (this.computeTime) {
               this.computeTime = 0
               clearInterval(this.intervalId)
+              this.intervalId = undefined
             }
         }
-      }
-      },
-
-      //在其他方法中，来确定是否显示提示框
-      showAlert (alertText) {
-        this.alertShow = true
-        this.alertText = alertText
+        }
       },
 
       //异步登陆
-      login () {
+      async login () {
+        //作为接收 2种登陆方式，返回的结果
+        let result
         const {phone, rightPhone, code, showAlert} = this
         if (this.loginWay) {
           if (!rightPhone) {
@@ -153,7 +157,17 @@
             //验证码错误
             showAlert('验证码错误')
           }
-
+          //发送短信验证码登陆
+          result = await reqLoginSms(phone, code)
+          /*
+          * 当点击登陆后，就不在需要验证码了，
+          * 所以，清除开启的定时器
+          * */
+          if (this.computeTime) {
+            this.computeTime = 0
+            clearInterval(this.intervalId)
+            this.intervalId = undefined
+          }
 
         } else {
           const {name, pwd, captcha} = this
@@ -167,8 +181,29 @@
             //验证码必须指定
             showAlert('验证码必须指定')
           }
+
+          //图片验证码的形式登陆
+          console.log({name, pwd, captcha})
+          result = await reqLoginPwd({name, pwd, captcha})
+          console.log(result)
+        }
+
+        //将result结果数据，进行处理
+        if (result.code===0) {
+          const user = result.data
+          //user保存到vuex的store中
+          this.$store.dispatch('recordUser', user)
+          //登陆完成后，不需要再回退，所以直接replace到个人中心
+          this.$router.replace('/profile')
+        } else {
+          //如果验证失败，验证码是需要更新的
+          this.getCaptcha()
+          const msg = result.msg
+          showAlert(msg)
         }
       },
+
+
 
       //点击时，关闭提示框，并清空提示文字
       closeTip1 () {
@@ -176,13 +211,18 @@
         this.alertText = ''
       },
 
-      //发送请求，更新图片验证码
-      imgUpdate (event) {
-        /*
-        * src必须变化，才会重新发送请求，
-        *   所以可以添加一个当前时间，并不会影响返回值。
-        * */
-        event.target.src = 'http://localhost:4000/captcha?time='+Date.now()
+      /*
+       * 发送请求，更新图片验证码
+       * src必须变化，才会重新发送请求，
+       *   所以可以添加一个当前时间，并不会影响返回值。
+       *
+       * 并且，因为登陆验证失败时，验证码应该在不点击时，也要更新一次！
+       * */
+      // getCaptcha (event) {
+      //   event.target.src = 'http://localhost:4000/captcha?time='+Date.now()
+      // }
+      getCaptcha () {
+        this.$refs.captcha.src = 'http://localhost:4000/captcha?time='+Date.now()
       }
     },
 

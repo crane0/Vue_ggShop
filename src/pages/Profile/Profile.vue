@@ -3,17 +3,22 @@
     <HeaderTop title="我的"/>
     <section class="profile-number">
       <!--login是一个路由-->
-      <router-link to="/login" class="profile-link">
+      <!--
+          如果已经登录了，再次点击这里，就不应该是跳转登陆页面，所以要做判断
+          /userInfo路由，还没有写。
+      -->
+      <router-link :to="userInfo._id ? '/userInfo' :'/login'" class="profile-link">
         <div class="profile_image">
           <i class="iconfont icon-person"></i>
         </div>
         <div class="user-info">
-          <p class="user-info-top">登录/注册</p>
+          <!--用户名和电话号登陆，只能有一个存在-->
+          <p class="user-info-top" v-if="!userInfo.phone">{{userInfo.name || '登录/注册'}}</p>
           <p>
             <span class="user-icon">
               <i class="iconfont icon-shouji"></i>
             </span>
-            <span class="icon-mobile-number">暂无绑定手机号</span>
+            <span class="icon-mobile-number">{{userInfo.phone || '暂无绑定手机号'}}</span>
           </p>
         </div>
         <span class="arrow">
@@ -93,13 +98,19 @@
 </template>
 
 <script>
+  import {mapState} from 'vuex'
   import HeaderTop from '../../components/HeaderTop/HeaderTop.vue'
 
   export default {
     name: "profile",
+    computed: {
+      ...mapState(['userInfo'])
+    },
+
     components: {
       HeaderTop
-    }
+    },
+
   }
 </script>
 
