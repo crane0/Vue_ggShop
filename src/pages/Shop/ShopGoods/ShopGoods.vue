@@ -22,10 +22,10 @@
           <li class="food-list-hook" v-for="(good, index) in goods" :key="index">
             <h1 class="title">{{good.name}}</h1>
             <ul>
-              <li class="food-item bottom-border-1px" v-for="(food, index) in good.foods" :key="index">
+              <li class="food-item bottom-border-1px" v-for="(food, index) in good.foods"
+                  :key="index" @click="showFood(food)">
                 <div class="icon">
-                  <img width="57" height="57"
-                       :src="food.icon">
+                  <img width="57" height="57" :src="food.icon">
                 </div>
                 <div class="content">
                   <h2 class="name">{{food.name}}</h2>
@@ -36,8 +36,14 @@
                   <div class="price">
                     <span class="now">￥{{food.price}}</span>
                   </div>
+                  <!--
+                      添加到购物车
+                      因为食品添加的数量，每个食物都应该 有各自的数量count
+                        所以，给每个food都添加了一个新的属性。
+                        所以，要将food传递过去
+                  -->
                   <div class="cartcontrol-wrapper">
-                    CartControl组件
+                    <CartControl :food="food" />
                   </div>
                 </div>
               </li>
@@ -46,6 +52,9 @@
         </ul>
       </div>
     </div>
+
+    <!--展示food的详情-->
+    <ShowFood :food="food" ref="food"/>
   </div>
 
 </template>
@@ -54,12 +63,16 @@
   import BScroll from 'better-scroll'
   import {mapState} from 'vuex'
 
+  import CartControl from '../../../components/CartControl/CartControl'
+  import ShowFood from '../../../components/ShowFood/ShowFood'
+
   export default {
     name: "Shop-goods",
     data () {
       return {
         scrollY: 0,   //右侧滑动的Y轴坐标（实时变化）
         tops: [],   //右侧分类的 li的距离顶端的top组成的数组（列表第一次显示后，就固定不变了）
+        food: {}    //需要显示的food
       }
     },
     computed: {
@@ -105,7 +118,7 @@
           this.scrollY = Math.abs(y)
         })
       },
-
+      //初始化tops
       _initTops () {
         //初始化tops，将每个 li对应的top值，存入数组中
         const tops = []
@@ -121,6 +134,7 @@
         console.log(tops)
       },
 
+      //点击左侧列表，右侧列表同步位置
       clickMenuItem (index) {
         const scrollY = this.tops[index]
         this.scrollY = scrollY
@@ -128,7 +142,22 @@
         this.foodsScroll.scrollTo(0,-scrollY,300)
       },
 
+      //点击，显示对应的food
+      showFood (food) {
+        //点击获取的food信息，添加到组件对象上
+        this.food = food
+        /*
+        * 这是从父级调用子级的方法（）
+        *   this.$refs.food获取的是组件标签，也就是组件对象
+        * */
+        this.$refs.food.toggleShow()
+      }
     },
+
+    components: {
+      CartControl,
+      ShowFood
+    }
   }
 </script>
 

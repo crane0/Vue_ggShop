@@ -6,7 +6,9 @@ import {RECEIVE_ADDRESS,
   RESET_USER_INFO,
   RECEIVE_RATINGS,
   RECEIVE_GOODS,
-  RECEIVE_INFO
+  RECEIVE_INFO,
+  INCREMENT_FOOD_COUNT,
+  DECREMENT_FOOD_COUNT
 } from './mutation_types'
 
 import {reqAddress,
@@ -103,6 +105,15 @@ export default {
       commit(RECEIVE_GOODS, {goods})
       // 数据更新了, 通知一下组件
       callBack && callBack()
+    }
+  },
+
+  //添加（或删除）到购物车
+  updateFoodCount({commit}, {isAdd, food}) {
+    if (isAdd) {
+      commit(INCREMENT_FOOD_COUNT, {food})
+    } else {
+      commit(DECREMENT_FOOD_COUNT, {food})
     }
   },
 }
