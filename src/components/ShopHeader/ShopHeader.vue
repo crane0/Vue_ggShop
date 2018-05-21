@@ -425,6 +425,7 @@
           span
             font-size 16px
             color rgba(255, 255, 255, .7)
+
     .activity-sheet
       position fixed
       top 0
@@ -432,6 +433,10 @@
       width 100%
       height 100%
       z-index 99
+      &.fade-enter-active,&.fade-leave-active
+        transition opacity .5s
+      &.fade-enter,&.fade-leave-to
+        opacity 0
       .activity-sheet-content
         position absolute
         background-color #f5f5f5
