@@ -9,6 +9,8 @@ import App from './App'
 import router from './router'
 import store from './store'
 
+
+import './mock/mockServer' // 加载mockServer即可
 /*
 * 注意，不是use，是注册组件标签
 * 定义在main中，是因为想要在全局使用，此时，只用做退出登录功能

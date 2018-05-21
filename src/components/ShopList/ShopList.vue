@@ -1,7 +1,8 @@
 <template>
   <div class="shop_container">
     <ul class="shop_list" v-if="shops.length">
-      <li class="shop_li border-1px" v-for="(shop, index) in shops" :key="index">
+      <li class="shop_li border-1px" v-for="(shop, index) in shops"
+          :key="index" @click="$router.push('/shop')">
         <a>
           <div class="shop_left">
             <img class="shop_img" :src="baseImgUrl + shop.image_path" alt="渣渣辉">
@@ -64,7 +65,7 @@
   import Star from '../Star/Star'
 
   export default {
-    name: "shop-list",
+    name: "Shop-list",
     data () {
       return {
         baseImgUrl: 'http://cangdu.org:8001/img/'
