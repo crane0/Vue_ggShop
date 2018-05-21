@@ -15,4 +15,6 @@ export default {
   ratings: [], // 商家评价列表
   info: {}, // 商家信息
 
+  shopCartFoods: []   //购物车中的食物列表，直接在mutations.js中使用了
+
 }

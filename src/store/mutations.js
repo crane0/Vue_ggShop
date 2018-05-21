@@ -52,6 +52,9 @@ export default {
     if (!food.count) {
       // food.count = 1
       Vue.set(food, 'count', 1)
+
+      //也要将食物，添加到购物车的列表中
+      state.shopCartFoods.push(food)
     } else {
       food.count++
     }
@@ -65,6 +68,10 @@ export default {
     * */
     if (food.count) {
       food.count--
+      //也要从购物车列表中删除
+      if (food.count === 0) {
+        state.shopCartFoods.splice(state.shopCartFoods.indexOf(food), 1)
+      }
     }
   }
 }

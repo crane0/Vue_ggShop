@@ -51,8 +51,9 @@
           </li>
         </ul>
       </div>
+      <!--购物车-->
+      <ShopCart/>
     </div>
-
     <!--展示food的详情-->
     <ShowFood :food="food" ref="food"/>
   </div>
@@ -65,6 +66,7 @@
 
   import CartControl from '../../../components/CartControl/CartControl'
   import ShowFood from '../../../components/ShowFood/ShowFood'
+  import ShopCart from '../../../components/ShopCart/ShopCart'
 
   export default {
     name: "Shop-goods",
@@ -156,7 +158,8 @@
 
     components: {
       CartControl,
-      ShowFood
+      ShowFood,
+      ShopCart
     }
   }
 </script>
