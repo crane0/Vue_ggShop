@@ -284,6 +284,8 @@
           .star-wrapper
             margin-bottom: 6px
             font-size: 0
+            /*解决高度塌陷*/
+            overflow hidden
             .star
               display: inline-block
               margin-right: 6px
