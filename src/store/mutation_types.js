@@ -16,3 +16,5 @@ export const CLEAR_CART = 'clear_cart' // 清空购物车
 
 export const RECEIVE_RATINGS = 'receive_ratings' // 接收商家评价数组
 export const RECEIVE_INFO = 'receive_info' // 接收商家信息
+
+export const RECEIVE_SEARCH_SHOPS = 'receive_search_shops' // 接收搜索的商品数组

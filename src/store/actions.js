@@ -9,7 +9,8 @@ import {RECEIVE_ADDRESS,
   RECEIVE_INFO,
   INCREMENT_FOOD_COUNT,
   DECREMENT_FOOD_COUNT,
-  CLEAR_CART
+  CLEAR_CART,
+  RECEIVE_SEARCH_SHOPS
 } from './mutation_types'
 
 import {reqAddress,
@@ -19,7 +20,9 @@ import {reqAddress,
   reqLogout,
   reqShopGoods,
   reqShopInfo,
-  reqShopRatings,} from '../api'
+  reqShopRatings,
+  reqSearchGoods
+} from '../api'
 
 export default {
   async getAddress ({commit, state}) {
@@ -128,4 +131,12 @@ export default {
     }
     callBack && callBack()
   },
+
+  //异步搜索商家列表
+  async searchShop({commit, state}, keyword) {
+    const {latitude, longitude} = state
+    const result = await reqSearchGoods(latitude+','+longitude, keyword)
+    commit(RECEIVE_SEARCH_SHOPS, {searchShops: result.data})
+  },
+
 }

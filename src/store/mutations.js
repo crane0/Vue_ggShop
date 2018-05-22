@@ -10,7 +10,8 @@ import {RECEIVE_ADDRESS,
   RECEIVE_RATINGS,
   INCREMENT_FOOD_COUNT,
   DECREMENT_FOOD_COUNT,
-  CLEAR_CART
+  CLEAR_CART,
+  RECEIVE_SEARCH_SHOPS
 } from './mutation_types'
 
 export default {
@@ -88,4 +89,10 @@ export default {
   [RECEIVE_RATINGS](state, {ratings}) {
     state.ratings = ratings
   },
+
+
+  [RECEIVE_SEARCH_SHOPS](state, {searchShops}) {
+    state.searchShops = searchShops
+  },
+
 }
