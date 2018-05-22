@@ -9,7 +9,8 @@ import {RECEIVE_ADDRESS,
   RECEIVE_GOODS,
   RECEIVE_RATINGS,
   INCREMENT_FOOD_COUNT,
-  DECREMENT_FOOD_COUNT
+  DECREMENT_FOOD_COUNT,
+  CLEAR_CART
 } from './mutation_types'
 
 export default {
@@ -73,5 +74,16 @@ export default {
         state.shopCartFoods.splice(state.shopCartFoods.indexOf(food), 1)
       }
     }
-  }
+  },
+
+  [CLEAR_CART](state) {
+    //首先先要将购物车的购物项 = 0
+    state.shopCartFoods.forEach(food => food.count = 0)
+    /*
+    * 再重置购物车中所有购物项
+    *   如果不移出，则count=0意味着对应的购物项，还是会保存着，
+    *   所以，当清空后，再次添加购物项时，之前的价格都会算上！（双倍）
+    * */
+    state.shopCartFoods = []
+  },
 }

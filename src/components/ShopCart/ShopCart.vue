@@ -21,13 +21,14 @@
         </div>
       </div>
 
-      <!--购物车列表显示-->
+      <!--购物车列表头部显示-->
       <transition name="swipe">
         <div class="shopcart-list" v-show="listShow">
           <div class="list-header">
             <h1 class="title">购物车</h1>
-            <span class="empty">清空</span>
+            <span class="empty" @click="clearCart">清空</span>
           </div>
+          <!--这是购物车列表内容-->
           <div class="list-content">
             <ul>
               <li class="food" v-for="(food, index) in shopCartFoods">
@@ -52,6 +53,8 @@
 </template>
 
 <script>
+  import BScroll from 'better-scroll'
+  import {MessageBox} from 'mint-ui'
   import {mapState, mapGetters} from 'vuex'
   import CartControl from '../../components/CartControl/CartControl'
 
@@ -104,6 +107,28 @@
           this.isShow = false
           return false
         }
+        //如果显示
+        if (this.isShow) {
+          this.$nextTick(() => {
+            /*
+            * 保证单例对象，是因为点击打开购物车列表时，
+            *   如果多次重复打开，每次打开都会创建BScroll对象，则其实打开了多个列表，
+            *     则在购物车列表中，添加数量时，就可能会多次添加
+            * 所以，要使用单例，保证只有一个实例对象。
+            * */
+            if (!this.scroll) {
+              this.scroll = new BScroll('.list-content', {
+                click: true
+              })
+            } else {
+              /*
+              * 因为列表是动态，随时都会添加更新的
+              * 所以，需要重新统计内容的高度，确保每个第一次（更新）可以滑动
+              * */
+              this.scroll.refresh()
+            }
+          })
+        }
         return this.isShow
       }
     },
@@ -113,6 +138,12 @@
         if (this.totalCount > 0) {
           this.isShow = !this.isShow
         }
+      },
+
+      clearCart () {
+        MessageBox.confirm('确定清空吗？').then(action => {
+          this.$store.dispatch('clearCart')
+        })
       }
     },
 

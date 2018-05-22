@@ -133,7 +133,6 @@
           tops.push(top)
         })
         this.tops = tops
-        console.log(tops)
       },
 
       //点击左侧列表，右侧列表同步位置
@@ -141,7 +140,7 @@
         const scrollY = this.tops[index]
         this.scrollY = scrollY
 
-        this.foodsScroll.scrollTo(0,-scrollY,300)
+        this.foodsScroll.scrollTo(0, -scrollY, 300)
       },
 
       //点击，显示对应的food
