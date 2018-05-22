@@ -12,6 +12,7 @@ import router from './router'
 import store from './store'
 
 import loading from './common/images/loading.gif'
+import './filters'  //加载过滤器，否则过滤器无效！！！
 import './mock/mockServer' // 加载mockServer即可
 
 /*
