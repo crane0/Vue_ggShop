@@ -104,12 +104,13 @@
         click: true,
         scrollX: true
       })
-      //先要保证有数据，再保证图片容器 ul要有宽，才可以滑动，
+      //先要保证有数据（否则报错），再保证图片容器 ul要有宽，才可以滑动，
       this.info.pics && this._setUlWidth()
     },
 
     watch: {
       /*
+      * 刷新info时，
       * info的状态数据是异步更新的，但是界面获取数据的地方还可能没有数据
       *   所以，要监视info的更新，
       *   并且使用 $nextTick

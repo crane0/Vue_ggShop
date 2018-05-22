@@ -1,7 +1,9 @@
 <template>
   <div>
     <!--路由组件-->
-    <router-view/>
+    <keep-alive>
+      <router-view/>
+    </keep-alive>
     <!--底部-->
     <FooterGuide v-show="$route.meta.showFooter"/>
   </div>

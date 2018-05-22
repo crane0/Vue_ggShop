@@ -3,16 +3,31 @@
     <ShopHeader/>
     <div class="tab">
       <div class="tab-item">
-        <router-link to="/shop/goods">点餐</router-link>
+        <!--
+            如果不加 replace，则在子路由之间进行各种跳转之后，
+            点击商家左上角的返回按钮，会一直在子路由之间返回！
+        -->
+        <router-link to="/shop/goods" replace>点餐</router-link>
       </div>
       <div class="tab-item">
-        <router-link to="/shop/ratings">评价</router-link>
+        <router-link to="/shop/ratings" replace>评价</router-link>
       </div>
       <div class="tab-item">
-        <router-link to="/shop/info">商家</router-link>
+        <router-link to="/shop/info" replace>商家</router-link>
       </div>
     </div>
-    <router-view/>
+    <!--
+        缓存路由组件
+        如果没有缓存路由，当切换路由时，会重新发送ajax请求，
+          但是！！！现在使用的是mockjs，ajax请求会被拦截，所以在控制台是看不到的！
+
+        缓存之后，以当前案例来看，
+          某个目标路由页面滑动之后，切换其他路由后，再切回来，还会在之前滑动的位置。
+          添加购物车按钮，也会保持
+    -->
+    <!--<keep-alive>-->
+      <router-view/>
+    <!--</keep-alive>-->
   </div>
 </template>
 
