@@ -89,22 +89,16 @@ export default {
     }
   },
 
-  // 异步获取商家评价列表
-  async getShopRatings({commit}) {
-    const result = await reqShopRatings()
-    if(result.code===0) {
-      const ratings = result.data
-      commit(RECEIVE_RATINGS, {ratings})
-    }
-  },
-
   // 异步获取商家商品列表
   async getShopGoods({commit}, callBack) {
     const result = await reqShopGoods()
     if(result.code===0) {
       const goods = result.data
       commit(RECEIVE_GOODS, {goods})
-      // 数据更新了, 通知一下组件
+      /*
+      * 数据更新了, 通知一下组件
+      * 也就是说，如果有回调函数，那就调用
+      * */
       callBack && callBack()
     }
   },
@@ -121,5 +115,17 @@ export default {
   //同步清空购物车
   clearCart({commit}) {
     commit(CLEAR_CART)
-  }
+  },
+
+
+
+  // 异步获取商家评价列表
+  async getShopRatings({commit}, callBack) {
+    const result = await reqShopRatings()
+    if(result.code===0) {
+      const ratings = result.data
+      commit(RECEIVE_RATINGS, {ratings})
+    }
+    callBack && callBack()
+  },
 }

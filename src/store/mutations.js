@@ -35,9 +35,6 @@ export default {
     state.info = info
   },
 
-  [RECEIVE_RATINGS](state, {ratings}) {
-    state.ratings = ratings
-  },
 
   [RECEIVE_GOODS](state, {goods}) {
     state.goods = goods
@@ -85,5 +82,10 @@ export default {
     *   所以，当清空后，再次添加购物项时，之前的价格都会算上！（双倍）
     * */
     state.shopCartFoods = []
+  },
+
+
+  [RECEIVE_RATINGS](state, {ratings}) {
+    state.ratings = ratings
   },
 }

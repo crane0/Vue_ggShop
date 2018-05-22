@@ -12,9 +12,9 @@ export default {
   userInfo: {},   //用户信息
 
   goods: [], // 商品列表
+  shopCartFoods: [],  //购物车中的食物列表，直接在mutations.js中使用了
+
   ratings: [], // 商家评价列表
   info: {}, // 商家信息
-
-  shopCartFoods: []   //购物车中的食物列表，直接在mutations.js中使用了
 
 }
