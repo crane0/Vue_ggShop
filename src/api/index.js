@@ -16,7 +16,7 @@ export const reqCategorys = () => ajax(BASE_URL + '/index_category')
 //3、根据经纬度获取商铺列表
 export const reqShops = (longitude, latitude) => ajax(BASE_URL + '/shops', {longitude, latitude})
 
-// 4、根据经纬度和关键字搜索商铺列表
+// 4、根据经纬度，关键字搜索商铺列表
 export const reqShopLists = (geohash, keyword) => ajax(BASE_URL + '/search_shops', {geohash, keyword})
 
 // 5、获取一次性验证码，在img的src中已经发送了请求，就不在这里操作了
@@ -46,11 +46,6 @@ export const reqShopRatings = () => ajax('/ratings')
 //获取商家信息
 export const reqShopInfo = () => ajax('/info')
 
-
-/**
- * 根据关键字搜索相关商家数组
- */
-export const reqSearchGoods = (geohash, keyword) => ajax(BASE_URL + '/search_shops', {geohash, keyword})
 
 
 

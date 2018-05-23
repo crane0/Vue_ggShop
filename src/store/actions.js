@@ -21,7 +21,7 @@ import {reqAddress,
   reqShopGoods,
   reqShopInfo,
   reqShopRatings,
-  reqSearchGoods
+  reqShopLists
 } from '../api'
 
 export default {
@@ -133,10 +133,11 @@ export default {
   },
 
   //异步搜索商家列表
-  async searchShop({commit, state}, keyword) {
+  async searchShops({commit, state}, keyword) {
     const {latitude, longitude} = state
-    const result = await reqSearchGoods(latitude+','+longitude, keyword)
-    commit(RECEIVE_SEARCH_SHOPS, {searchShops: result.data})
+    const result = await reqShopLists(latitude+','+longitude, keyword)
+    if (result.code===0) {
+      commit(RECEIVE_SEARCH_SHOPS, {searchShops: result.data})
+    }
   },
-
 }
